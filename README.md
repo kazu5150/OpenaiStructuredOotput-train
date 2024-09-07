@@ -1,84 +1,72 @@
-# カレンダーイベント抽出ツール
+# 注文情報抽出ツール
 
-このプロジェクトは、OpenAIのGPTモデルを使用して、自然言語テキストからカレンダーイベント情報を抽出し、Pydanticを使用して構造化された形式に解析します。
-
-## プロジェクト概要
-
-カレンダーイベント抽出ツールは、OpenAIのGPTモデルの能力を活用して、自然言語の説明から自動的にイベントの詳細を抽出するPythonベースのツールです。非構造化テキストを解析し、イベント名、日付、参加者を含むイベントに関する構造化データを返すように設計されています。
+このプロジェクトは、OpenAIのGPTモデルを使用してテキストファイルから注文情報を抽出するPythonスクリプトです。入力を処理し、配送日、商品、数量、配送先などの構造化された注文詳細を出力します。
 
 ## 特徴
 
-- 自然言語テキストからイベント情報を抽出
-- 正確な情報抽出のためにOpenAIのGPT-3.5-turboモデルを使用
-- 抽出された情報を構造化されたPydanticモデルに解析
-- APIレスポンスとデータ解析の潜在的なエラーを処理
+- テキストファイルから注文情報を抽出
+- 自然言語処理にOpenAIのGPTモデルを使用
+- 配送日、商品、数量、配送先を含む構造化データを出力
+- APIからの複雑なネストされたJSON応答を処理
 
 ## 前提条件
 
-- Python 3.7以上
+始める前に、以下の要件を満たしていることを確認してください：
+
+- Python 3.6以上
 - OpenAI APIキー
 
 ## インストール
 
-1. リポジトリをクローンします：
+1. このリポジトリをクローンします：
    ```
-   git clone https://github.com/yourusername/calendar-event-extractor.git
-   cd calendar-event-extractor
-   ```
-
-2. 仮想環境を作成し、アクティベートします：
-   ```
-   python -m venv venv
-   source venv/bin/activate  # Windowsの場合は `venv\Scripts\activate`
+   git clone https://github.com/あなたのユーザー名/order-information-extractor.git
+   cd order-information-extractor
    ```
 
-3. 必要なパッケージをインストールします：
+2. 必要な依存関係をインストールします：
    ```
    pip install -r requirements.txt
    ```
 
-4. プロジェクトのルートディレクトリに`.env`ファイルを作成し、OpenAI APIキーを追加します：
-   ```
-   OPENAI_API_KEY=your_openai_api_key_here
-   ```
+3. OpenAI APIキーを設定します：
+   - プロジェクトのルートに`.env`ファイルを作成します
+   - `.env`ファイルにOpenAI APIキーを追加します：
+     ```
+     OPENAI_API_KEY=あなたのAPIキーをここに
+     ```
 
 ## 使用方法
 
-1. 仮想環境がアクティブになっていることを確認します。
+1. 入力テキストファイルをスクリプトの親ディレクトリの`inputText`フォルダに配置します。ファイル名は`example.txt`にしてください。
 
-2. メインスクリプトを実行します：
+2. スクリプトを実行します：
    ```
-   python src/main.py
+   python main.py
    ```
 
-3. スクリプトはデフォルトの入力テキスト「Alice and Bob are going to a science fair on Friday.」を処理します。異なるイベントの説明から情報を抽出するには、`src/main.py`ファイル内のこのテキストを変更できます。
+3. スクリプトが入力ファイルを処理し、抽出された注文情報を出力します。
 
-## サンプル出力
+## プロジェクト構造
 
-```
-Extracted event: name='Science Fair' date='Friday' participants=['Alice', 'Bob']
-```
-
-## カスタマイズ
-
-`src/main.py`の`input_text`変数を変更することで、異なるイベントの説明から情報を抽出できます。例：
-
-```python
-input_text = "John and Sarah are attending a concert on Saturday night at 8 PM."
-```
-
-## エラー処理
-
-このスクリプトには、JSON解析とデータ検証の基本的なエラー処理が含まれています。エラーが発生した場合、コンソールに出力されます。
+- `main.py`: 入力を処理し、注文情報を抽出するメインスクリプト
+- `inputText/example.txt`: 注文情報を含む入力ファイル（ユーザーが配置する）
+- `.env`: 環境変数用の設定ファイル（ユーザーが作成する）
+- `requirements.txt`: Pythonの依存関係リスト
 
 ## 貢献
 
-カレンダーイベント抽出ツールの改善への貢献を歓迎します。プルリクエストを自由に提出してください。
+このプロジェクトへの貢献を歓迎します。リポジトリをフォークし、変更内容をプルリクエストとして送信してください。
 
 ## ライセンス
 
-このプロジェクトはオープンソースであり、[MITライセンス](LICENSE)の下で利用可能です。
+このプロジェクトはMITライセンスの下で公開されています - 詳細は[LICENSE](LICENSE)ファイルをご覧ください。
+
+## 謝辞
+
+- このプロジェクトは自然言語処理にOpenAI APIを使用しています。
+- データ検証と設定管理にPydanticライブラリを使用しています。
 
 ## 免責事項
 
-このツールはOpenAIのGPTモデルを使用しており、OpenAIの使用事例ポリシーと価格設定の対象となります。このツールを使用する際は、OpenAIの利用規約を遵守してください。
+このスクリプトは教育目的のみで使用されます。OpenAI APIを使用する際は、OpenAIのユースケースポリシーに準拠していることを確認してください。
